@@ -1,0 +1,1 @@
+CertiResi es una aplicación web para escanear el código de verificación de certificados de residentes de diferentes ayutamientos cuyo objetivo es informar sobre la validez de dicho certificado.
