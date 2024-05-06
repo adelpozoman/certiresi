@@ -161,7 +161,6 @@
                         // Start failed, handle it.
                     });
 
-
             }
         }).catch(err => {
             // handle err
@@ -231,7 +230,7 @@
                 '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
                 '        </div>\n' +
                 '    </div>\n' +
-                '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="camera()">\n' +
+                '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="santaCruz()">\n' +
                 '        <div class="card-body">\n' +
                 '            <h5 class="card-title">Illes Canarias</h5>\n' +
                 '            <p class="card-text">Reconocerá Santa Cruz de Tenerife</p>\n' +
@@ -271,6 +270,63 @@
 
         }
     </script>
+
+    <script>
+        function santaCruz(){
+            clearMasterChildren();
+            var containerDiv = document.createElement("div");
+            containerDiv.classList.add("container");
+
+            // Create title
+            var title = document.createElement("h1");
+            title.classList.add("mt-5", "mb-4");
+            title.textContent = "Santa Cruz de Tenerife";
+            containerDiv.appendChild(title);
+
+            // Create form
+            var form = document.createElement("form");
+            form.id = "inputForm";
+            containerDiv.appendChild(form);
+
+            // Create title input field
+            var titleLabel = document.createElement("label");
+            titleLabel.setAttribute("for", "title");
+            titleLabel.textContent = "Código de verificación";
+            form.appendChild(titleLabel);
+
+            var titleInput = document.createElement("input");
+            titleInput.setAttribute("type", "text");
+            titleInput.classList.add("form-control");
+            titleInput.setAttribute("id", "title");
+            titleInput.setAttribute("placeholder", "20 dígitos numéricos");
+            form.appendChild(titleInput);
+
+           /* // Create subtitle input field
+            var subtitleLabel = document.createElement("label");
+            subtitleLabel.setAttribute("for", "subtitle");
+            subtitleLabel.textContent = "Subtitle";
+            form.appendChild(subtitleLabel);
+
+            var subtitleInput = document.createElement("input");
+            subtitleInput.setAttribute("type", "text");
+            subtitleInput.classList.add("form-control");
+            subtitleInput.setAttribute("id", "subtitle");
+            subtitleInput.setAttribute("placeholder", "Enter subtitle");
+            form.appendChild(subtitleInput);*/
+
+            // Create submit button
+            var submitButton = document.createElement("button");
+            submitButton.setAttribute("type", "submit");
+            submitButton.classList.add("btn", "btn-primary");
+            submitButton.textContent = "Submit";
+            form.appendChild(submitButton);
+            document.getElementById('master').appendChild(containerDiv);
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/ocr"></script>
 
 
 
