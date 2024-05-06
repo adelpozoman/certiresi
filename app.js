@@ -51,6 +51,9 @@ app.get('/html5-qrcode.min.js', (req, res) => {
 const santa = require('./src/components/1-staEulalia');
 const palma = require('./src/components/2-palma3.6');
 
+const santjoan = require('./src/components/4-santjoan');
+const ibiza = require('./src/components/5-ibiza');
+
 
 const bodyParser = require('body-parser');
 
@@ -73,7 +76,18 @@ app.post('/submit', async (req, res) => {
         return res.json({"name":nameLine, "date":dateLine, "id":idLine});
     }
     if (city == "santjosep"){
-        const {name, id, date} = await santa(code);
+        //const {name, id, date} = await santa(code);
+        //console.log("Name: ", name, "Date: ", date, "Id: ", id);
+        //return res.json({name, date, id});
+    }
+    if (city == "santjoan"){
+        console.log("SANT JOAN==============================================================================")
+        const {name, id, date} = await santjoan(code);
+        console.log("Name: ", name, "Date: ", date, "Id: ", id);
+        return res.json({name, date, id});
+    }
+    if (city == "ibiza"){
+        const {name, id, date} = await ibiza(code);
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return res.json({name, date, id});
     }
