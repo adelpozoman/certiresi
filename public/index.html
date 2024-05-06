@@ -118,6 +118,11 @@
     <script>
 
     async function camera2(city) {
+        clearMasterChildren();
+        var backCamera = document.createElement('div');
+        backCamera.setAttribute('id', 'backCamera');
+        document.getElementById('master').appendChild(backCamera);
+        
         // This method will trigger user permissions
         Html5Qrcode.getCameras().then(devices => {
             /**
@@ -128,7 +133,7 @@
             if (devices && devices.length) {
                 var cameraId = devices[0].id;
                 // .. use this to start scanning.
-                const html5QrCode = new Html5Qrcode(/* element id */ "futureCamera2", /* verbose= */ false);
+                const html5QrCode = new Html5Qrcode(/* element id */ "backCamera", /* verbose= */ false);
                 html5QrCode.start(
                     cameraId,
                     {
@@ -179,14 +184,14 @@
         function showBaleares(){
             clearMasterChildren();
             var futureCamera = document.createElement('div');
-            futureCamera.setAttribute('class', 'card w-100 h-50 text-center border rounded');
+            futureCamera.setAttribute('class', 'card w-100 h-25 text-center border rounded');
             futureCamera.setAttribute('id', 'futureCamera');
             futureCamera.setAttribute('onclick', 'camera2("santaeulalia")');
             futureCamera.innerHTML = '<div class="card-body"><h5 class="card-title">Santa Eulalia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(futureCamera);
 
             var futureCamera2 = document.createElement('div');
-            futureCamera2.setAttribute('class', 'card w-100 h-50 text-center border rounded');
+            futureCamera2.setAttribute('class', 'card w-100 h-25 text-center border rounded');
             futureCamera2.setAttribute('id', 'futureCamera2');
             futureCamera2.setAttribute('onclick', 'camera2("palma")');
             futureCamera2.innerHTML = '<div class="card-body"><h5 class="card-title">Palma</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
@@ -239,8 +244,6 @@
 
     <script>
         function showResponse(data){
-            console.log("AAAAAAAAAAAAA");
-
             document.getElementById("master").innerHTML = '<div class="container">\n' +
                 '    <div class="row">\n' +
                 '      <div class="col-md-12">\n' +
