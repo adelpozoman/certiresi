@@ -81,7 +81,6 @@ app.post('/submit', async (req, res) => {
         //return res.json({name, date, id});
     }
     if (city == "santjoan"){
-        console.log("SANT JOAN==============================================================================")
         const {name, id, date} = await santjoan(code);
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return res.json({name, date, id});
