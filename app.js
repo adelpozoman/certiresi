@@ -40,7 +40,16 @@ app.get('/qr-scanner-worker.min.js', (req, res) => {
     });
 });
 
+app.get('/html5-qrcode.min.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html5-qrcode.min.js'), {
+        headers: {
+            'Content-Type': 'application/javascript' // Set the correct MIME type
+        }
+    });
+});
 
+const santa = require('./src/components/1-staEulalia');
+const palma = require('./src/components/2-palma3.6');
 
 
 const bodyParser = require('body-parser');
@@ -48,15 +57,32 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/submit', (req, res) => {
+app.post('/submit', async (req, res) => {
     // Process the form data
     const city = req.body.city;
     const code = req.body.code;
     console.log(`City: ${city}, Code: ${code}`);
+    if (city == "santaeulalia"){
+        const {name, date, id} = await santa(code);
+        console.log("Name: ", name, "Date: ", date, "Id: ", id);
+        return res.json({name, date, id});
+    }
+    if (city == "palma"){
+        const {idLine, dateLine, nameLine} = await palma(code);
+        console.log("Id: ", idLine , "Date: ", dateLine, "Name: ", nameLine);
+        return res.json({nameLine, dateLine, idLine});
+    }
+    if (city == "santjosep"){
+        const {name, id, date} = await santa(code);
+        console.log("Name: ", name, "Date: ", date, "Id: ", id);
+        return res.json({name, date, id});
+    }
+
 
     // Perform any necessary server-side operations (e.g., authentication, data processing)
 
     // Send a response back to the client
     res.json({ message: 'Form submitted successfully!' });
 });
+
 

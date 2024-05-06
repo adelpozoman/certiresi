@@ -13,7 +13,7 @@
         function submitForm(city, code) {
             let data = {
                 city: city,
-                code: code.data
+                code: code
             };
 
             var xhr = new XMLHttpRequest();
@@ -76,7 +76,7 @@
                     qrScanner.stop();
                     //destroy futureCameraDiv
                     futureCameraDiv.remove();
-                    submitForm("santJoan", result);
+                    submitForm("santJoan", result.data);
                 },
                 { /* your options or returnDetailedScanResult: true if you're not specifying any other options */ },
             );
@@ -87,27 +87,145 @@
 
 
 
+
+
     }
 
 
 </script>
 
 
+
+<!--    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>-->
+    <script src="/html5-qrcode.min.js" type="text/javascript"></script>
+
+    <script>
+
+    function camera2(city) {
+        // This method will trigger user permissions
+        Html5Qrcode.getCameras().then(devices => {
+            /**
+             * devices would be an array of objects of type:
+             * { id: "id", label: "label" }
+             */
+            console.log(devices);
+            if (devices && devices.length) {
+                var cameraId = devices[0].id;
+                // .. use this to start scanning.
+                const html5QrCode = new Html5Qrcode(/* element id */ "futureCamera2", /* verbose= */ false);
+                html5QrCode.start(
+                    cameraId,
+                    {
+                        fps: 10,    // Optional, frame per seconds for qr code scanning
+                        //qrbox: { width: 250, height: 250 }  // Optional, if you want bounded box UI
+                    },
+                    (decodedText, decodedResult) => {
+                        // do something when code is read
+                        console.log("decodedText", decodedText);
+                        //console.log("decodedResult", decodedResult);
+
+                        html5QrCode.stop().then(ignore => {
+                            // QR Code scanning is stopped.
+                        }).catch(err => {
+                            // Stop failed, handle it.
+                        });
+                        clearMasterChildren();
+                        submitForm(city, decodedText);
+
+                        fillMasterWithCommunityCards();
+                    },
+                    (errorMessage) => {
+                        // parse error, ignore it.
+                        console.log("errorMessage", errorMessage);
+                    })
+                    .catch((err) => {
+                        // Start failed, handle it.
+                    });
+
+
+            }
+        }).catch(err => {
+            // handle err
+        });
+
+    }
+    </script>
+
+
+    <script>
+        function clearMasterChildren() {
+            var master = document.getElementById('master');
+            while (master.firstChild) {
+                master.removeChild(master.firstChild);
+            }
+        }
+    </script>
+
+    <script>
+        function showBaleares(){
+            clearMasterChildren();
+            var futureCamera = document.createElement('div');
+            futureCamera.setAttribute('class', 'card w-100 h-50 text-center border rounded');
+            futureCamera.setAttribute('id', 'futureCamera');
+            futureCamera.setAttribute('onclick', 'camera2("santaeulalia")');
+            futureCamera.innerHTML = '<div class="card-body"><h5 class="card-title">Santa Eulalia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(futureCamera);
+
+            var futureCamera2 = document.createElement('div');
+            futureCamera2.setAttribute('class', 'card w-100 h-50 text-center border rounded');
+            futureCamera2.setAttribute('id', 'futureCamera2');
+            futureCamera2.setAttribute('onclick', 'camera2("palma")');
+            futureCamera2.innerHTML = '<div class="card-body"><h5 class="card-title">Palma</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(futureCamera2);
+        }
+    </script>
+
+
+    <script>
+        function fillMasterWithCommunityCards(){
+            document.getElementById("master").innerHTML ='<div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera2" onclick="showBaleares()">\n' +
+                '        <div class="card-body">\n' +
+                '            <h5 class="card-title">Illes Balears</h5>\n' +
+                '            <p class="card-text">Reconoce certificados de santaEulalia, palma, santjosep, santjoan, ibiza y alaior.</p>\n' +
+                '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="camera()">\n' +
+                '        <div class="card-body">\n' +
+                '            <h5 class="card-title">Illes Canarias</h5>\n' +
+                '            <p class="card-text">Reconocerá Santa Cruz de Tenerife</p>\n' +
+                '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
+                '        </div>';
+        }
+    </script>
+
+
+    <script>
+        function showWaiting(){
+            document.getElementById("master").innerHTML = ''
+            return;
+        }
+    </script>
+
+
+
+
+
 </head>
 <body>
 
 <div id="master" style="height: 100vh; background-color: rgba(255,0,0,0.1);">
-    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="camera()">
+    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera2" onclick="showBaleares()">
         <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <h5 class="card-title">Illes Balears</h5>
+            <p class="card-text">Reconoce certificados de santaEulalia, palma, santjosep, santjoan, ibiza y alaior.</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
-    <div class="card w-100 h-50 text-center border rounded" style=";">
+    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="camera()">
         <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <h5 class="card-title">Illes Canarias</h5>
+            <p class="card-text">Reconocerá Santa Cruz de Tenerife</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
