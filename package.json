@@ -20,7 +20,9 @@
     "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1",
     "pdf2json": "^3.0.5",
+    "pdf2pic": "^3.1.1",
     "puppeteer": "^22.7.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "tesseract.js": "^5.0.5"
   }
 }
