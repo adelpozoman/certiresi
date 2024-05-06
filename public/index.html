@@ -25,6 +25,20 @@
                     // Update page based on response
                     //document.getElementById('result').innerText = responseData.message;
                     console.log(responseData);
+
+
+                    showResponse(responseData);
+
+                    //5 seconds timer:
+                    setTimeout(function() {
+                        // Execute second instruction after 5 seconds
+                        console.log("Second instruction");
+                        fillMasterWithCommunityCards();
+                    }, 5000);
+
+
+
+                    //return responseData;
                 } else {
                     console.error('Request failed with status code ' + xhr.status);
                 }
@@ -35,6 +49,8 @@
 
             // Convert the data object to JSON and send it in the request body
             xhr.send(JSON.stringify(data));
+
+            showWaiting();
         }
 
 
@@ -101,7 +117,7 @@
 
     <script>
 
-    function camera2(city) {
+    async function camera2(city) {
         // This method will trigger user permissions
         Html5Qrcode.getCameras().then(devices => {
             /**
@@ -131,8 +147,6 @@
                         });
                         clearMasterChildren();
                         submitForm(city, decodedText);
-
-                        fillMasterWithCommunityCards();
                     },
                     (errorMessage) => {
                         // parse error, ignore it.
@@ -202,8 +216,34 @@
 
     <script>
         function showWaiting(){
-            document.getElementById("master").innerHTML = ''
+            document.getElementById("master").innerHTML = '<div class="container">\n' +
+                '    <div class="row">\n' +
+                '      <div class="col-md-12 text-center">\n' +
+                '        <h1 class="mt-5">Waiting Response</h1>\n' +
+                '      </div>\n' +
+                '    </div>\n' +
+                '  </div>'
             return;
+        }
+    </script>
+
+    <script>
+        function showResponse(data){
+            console.log("AAAAAAAAAAAAA");
+
+            document.getElementById("master").innerHTML = '<div class="container">\n' +
+                '    <div class="row">\n' +
+                '      <div class="col-md-12">\n' +
+                '        <h1 class="mt-5">Information</h1>\n' +
+                '        <div class="mt-4">\n' +
+                '          <p>ID: <span id="idvariable">'+ data.id +'</span></p>\n' +
+                '          <p>NAME: <span id="namevariable">'+ data.name +'</span></p>\n' +
+                '          <p>DATE: <span id="datevariable">'+ data.date +'</span></p>\n' +
+                '        </div>\n' +
+                '      </div>\n' +
+                '    </div>\n' +
+                '  </div>'
+
         }
     </script>
 

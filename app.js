@@ -70,7 +70,7 @@ app.post('/submit', async (req, res) => {
     if (city == "palma"){
         const {idLine, dateLine, nameLine} = await palma(code);
         console.log("Id: ", idLine , "Date: ", dateLine, "Name: ", nameLine);
-        return res.json({nameLine, dateLine, idLine});
+        return res.json({"name":nameLine, "date":dateLine, "id":idLine});
     }
     if (city == "santjosep"){
         const {name, id, date} = await santa(code);
