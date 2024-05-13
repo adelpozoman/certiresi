@@ -54,6 +54,8 @@ const palma = require('./src/components/2-palma3.6');
 const santjoan = require('./src/components/4-santjoan');
 const ibiza = require('./src/components/5-ibiza');
 
+const santaCruz = require('./src/components/7-santacruz');
+
 
 const bodyParser = require('body-parser');
 
@@ -87,6 +89,12 @@ app.post('/submit', async (req, res) => {
     }
     if (city == "ibiza"){
         const {name, id, date} = await ibiza(code);
+        console.log("Name: ", name, "Date: ", date, "Id: ", id);
+        return res.json({name, date, id});
+    }
+    //6, alaior
+    if (city == "santacruz"){
+        const {name, id, date} = await santaCruz(code);
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return res.json({name, date, id});
     }
