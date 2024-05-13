@@ -299,6 +299,19 @@
             row.appendChild(col);
             container.appendChild(row);
 
+            //check if data.date is older than 6 months from today and show a warning
+            //data.date is in format DD/MM/YYYY, now we convert it to date
+            const date = new Date(data.date.split("/").reverse().join("-"));
+            const today = new Date();
+            const sixMonthsAgo = new Date(today.setMonth(today.getMonth() - 6));
+            //console.log(date, sixMonthsAgo)
+            if(date < sixMonthsAgo){
+                const warning = document.createElement("div");
+                warning.classList.add("alert", "alert-warning", "mt-4");
+                warning.textContent = "El certificado ha caducado";
+                container.appendChild(warning);
+            }
+
             document.getElementById("master").appendChild(container);
         }
     </script>
