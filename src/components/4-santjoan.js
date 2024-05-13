@@ -206,7 +206,7 @@ async function do_request(userCode, destinationPath) {
                 response.data.pipe(writer);
 
                 writer.on('finish', () => {
-                    console.log('PDF download request success.');
+                    //console.log('PDF download request success.');
                 });
 
                 writer.on('error', err => {
@@ -237,13 +237,13 @@ async function main(pdfUrl){
     // Download the PDF
     try {
         await do_request(pdfUrl, destinationPath);
-        console.log('PDF downloaded successfully.');
+        //console.log('PDF downloaded successfully.');
 
 
         // Parse the downloaded PDF
         //save the 3 values given back by PDFI()
         const { name, id, date } = await main2();
-        console.log("Name: ", name, "Date: ", date, "Id: ", id);
+        //console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return {name, date, id};
 
 
