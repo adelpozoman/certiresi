@@ -242,32 +242,64 @@
 
     <script>
         function showWaiting(){
-            document.getElementById("master").innerHTML = '<div class="container">\n' +
-                '    <div class="row">\n' +
-                '      <div class="col-md-12 text-center">\n' +
-                '        <h1 class="mt-5">Waiting Response</h1>\n' +
-                '      </div>\n' +
-                '    </div>\n' +
-                '  </div>'
+            const container = document.createElement("div");
+            container.classList.add("container");
+
+            const row = document.createElement("div");
+            row.classList.add("row");
+
+            const col = document.createElement("div");
+            col.classList.add("col-md-12", "text-center");
+
+            const h1 = document.createElement("h1");
+            h1.classList.add("mt-5");
+            h1.textContent = "Esperando respuesta";
+
+            col.appendChild(h1);
+            row.appendChild(col);
+            container.appendChild(row);
+
+            document.getElementById("master").innerHTML = "";
+            document.getElementById("master").appendChild(container);
             return;
         }
     </script>
 
     <script>
         function showResponse(data){
-            document.getElementById("master").innerHTML = '<div class="container">\n' +
-                '    <div class="row">\n' +
-                '      <div class="col-md-12">\n' +
-                '        <h1 class="mt-5">Information</h1>\n' +
-                '        <div class="mt-4">\n' +
-                '          <p>ID: <span id="idvariable">'+ data.id +'</span></p>\n' +
-                '          <p>NAME: <span id="namevariable">'+ data.name +'</span></p>\n' +
-                '          <p>DATE: <span id="datevariable">'+ data.date +'</span></p>\n' +
-                '        </div>\n' +
-                '      </div>\n' +
-                '    </div>\n' +
-                '  </div>'
+            clearMasterChildren();
+            const container = document.createElement("div");
+            container.classList.add("container");
 
+            const row = document.createElement("div");
+            row.classList.add("row");
+
+            const col = document.createElement("div");
+            col.classList.add("col-md-12", "text-center");
+
+            const h1 = document.createElement("h1");
+            h1.classList.add("mt-5");
+            h1.textContent = "Information";
+
+            const div = document.createElement("div");
+            div.classList.add("mt-4", "text-center");
+
+            const idParagraph = document.createElement("p");
+            idParagraph.innerHTML = "ID: <span id='idvariable'>" + data.id + "</span>";
+
+            const nameParagraph = document.createElement("p");
+            nameParagraph.innerHTML = "Titular: <span id='namevariable'>" + data.name + "</span>";
+
+            const dateParagraph = document.createElement("p");
+            dateParagraph.innerHTML = "Fecha emisión: <span id='datevariable'>" + data.date + "</span>";
+
+            div.append(idParagraph, nameParagraph, dateParagraph);
+            col.appendChild(h1);
+            col.appendChild(div);
+            row.appendChild(col);
+            container.appendChild(row);
+
+            document.getElementById("master").appendChild(container);
         }
     </script>
 
@@ -316,17 +348,22 @@
 
             // Create submit button
             var submitButton = document.createElement("button");
-            submitButton.setAttribute("type", "submit");
+            submitButton.setAttribute("type", "button");
             submitButton.classList.add("btn", "btn-primary");
-            submitButton.textContent = "Submit";
+            submitButton.textContent = "Validar";
+
+            submitButton.addEventListener("click", function() {
+                // Call your function here with the input from titleInput
+                const code = titleInput.value;
+                submitForm("santacruz", code); // Replace "yourFunction" with the name of your function
+            });
+
+
             form.appendChild(submitButton);
             document.getElementById('master').appendChild(containerDiv);
         }
     </script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/ocr"></script>
 
 
 

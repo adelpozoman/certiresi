@@ -121,10 +121,10 @@ async function do_request(userCode) {
 
         const name = lines[14].trimStart();
         const id = lines[16].trimStart();
-        const dateString = lines[33].split(",")[1].trimStart();
-        const date = convertTextDateToDDMMYYYY(dateString)  //En SANTA CRUZ DE TENERIFE, 17 de febrero de 2019
+        const dateString = lines[33].split(",")[1].trimStart();  //En SANTA CRUZ DE TENERIFE, 17 de febrero de 2019
+        const date = convertTextDateToDDMMYYYY(dateString)
 
-        console.log("Name: " + name + " Date: " + date + " Id: " + id);
+        //console.log("Name: " + name + " Date: " + date + " Id: " + id);
 
         return {
             name: name,
@@ -137,6 +137,6 @@ async function do_request(userCode) {
     }
 }
 
-do_request("12440533771117456152");
+//do_request("12440533771117456152");
 
 module.exports = do_request;
