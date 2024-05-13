@@ -40,23 +40,6 @@ async function parsePDF(pdfPath) {
     try {
         const dataBuffer = fs.readFileSync(pdfPath);
         const pdfData = await pdfParse(dataBuffer);
-        //console.log(pdfData.text);
-
-
-        const dateRegex = /(\d{2}\/\d{2}\/\d{4})/;
-        const nameRegex = /[A-Z\s]+,\s[A-Z\s]+/;
-
-        function extractData(text) {
-            const dateMatch = text.match(dateRegex);
-            const nameMatch = text.match(nameRegex);
-
-            const date = dateMatch ? dateMatch[0] : '';
-            const name = nameMatch ? nameMatch[0] : '';
-
-            return { date, name };
-        }
-        const extractedData = extractData(pdfData.text);
-        //console.log(extractedData);
 
 
         const lines = pdfData.text.split('\n');
@@ -92,6 +75,5 @@ async function do_request(argument) {
 }
 
 //do_request('https://seuelectronica.palma.es/redosefront/init.do?id=8360501-6119AEB38E-504446-6573');
-
 
 module.exports = do_request;
