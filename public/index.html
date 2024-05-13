@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Certiresi, verificador de certificados</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 
@@ -98,7 +98,6 @@
             );
             qrScanner.start();
 
-
         });
 
 
@@ -182,40 +181,41 @@
     <script>
         function showBaleares(){
             clearMasterChildren();
-            var futureCamera = document.createElement('div');
-            futureCamera.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            futureCamera.setAttribute('id', 'futureCamera');
-            futureCamera.setAttribute('onclick', 'camera2("santaeulalia")');
-            futureCamera.innerHTML = '<div class="card-body"><h5 class="card-title">Santa Eulalia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(futureCamera);
+            let cards = new Array(8);
+            cards[0] = document.createElement('div');
+            cards[0].setAttribute('class', 'card w-100 h-20 text-center border rounded');
+            cards[0].setAttribute('id', 'cards[0]');
+            cards[0].setAttribute('onclick', 'camera2("santaeulalia")');
+            cards[0].innerHTML = '<div class="card-body"><h5 class="card-title">Santa Eulalia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(cards[0]);
 
-            var futureCamera2 = document.createElement('div');
-            futureCamera2.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            futureCamera2.setAttribute('id', 'futureCamera2');
-            futureCamera2.setAttribute('onclick', 'camera2("palma")');
-            futureCamera2.innerHTML = '<div class="card-body"><h5 class="card-title">Palma</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(futureCamera2);
+            var card1 = document.createElement('div');
+            card1.setAttribute('class', 'card w-100 h-20 text-center border rounded');
+            card1.setAttribute('id', 'card1');
+            card1.setAttribute('onclick', 'camera2("palma")');
+            card1.innerHTML = '<div class="card-body"><h5 class="card-title">Palma</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(card1);
 
-            var futureCamera3 = document.createElement('div');
-            futureCamera3.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            futureCamera3.setAttribute('id', 'futureCamera3');
-            futureCamera3.setAttribute('onclick', 'camera2("santjosep")');
-            futureCamera3.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Josep de Sa Talaia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(futureCamera3);
+            var card2 = document.createElement('div');
+            card2.setAttribute('class', 'card w-100 h-20 text-center border rounded');
+            card2.setAttribute('id', 'card2');
+            card2.setAttribute('onclick', 'textForm("santjosep")');
+            card2.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Josep de Sa Talaia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(card2);
 
-            var futureCamera4 = document.createElement('div');
-            futureCamera4.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            futureCamera4.setAttribute('id', 'futureCamera4');
-            futureCamera4.setAttribute('onclick', 'camera2("santjoan")');
-            futureCamera4.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Joan de Labritja</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(futureCamera4);
+            var card3 = document.createElement('div');
+            card3.setAttribute('class', 'card w-100 h-20 text-center border rounded');
+            card3.setAttribute('id', 'card3');
+            card3.setAttribute('onclick', 'camera2("santjoan")');
+            card3.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Joan de Labritja</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(card3);
 
-            var futureCamera5 = document.createElement('div');
-            futureCamera5.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            futureCamera5.setAttribute('id', 'futureCamera5');
-            futureCamera5.setAttribute('onclick', 'camera2("ibiza")');
-            futureCamera5.innerHTML = '<div class="card-body"><h5 class="card-title">Ibiza</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(futureCamera5);
+            var card4 = document.createElement('div');
+            card4.setAttribute('class', 'card w-100 h-20 text-center border rounded');
+            card4.setAttribute('id', 'card4');
+            card4.setAttribute('onclick', 'camera2("ibiza")');
+            card4.innerHTML = '<div class="card-body"><h5 class="card-title">Ibiza</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(card4);
 
         }
     </script>
@@ -230,9 +230,9 @@
                 '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
                 '        </div>\n' +
                 '    </div>\n' +
-                '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="santaCruz()">\n' +
+                '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick=\'textForm("santacruz")\'>\n' +
                 '        <div class="card-body">\n' +
-                '            <h5 class="card-title">Illes Canarias</h5>\n' +
+                '            <h5 class="card-title">Islas Canarias</h5>\n' +
                 '            <p class="card-text">Reconocerá Santa Cruz de Tenerife</p>\n' +
                 '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
                 '        </div>';
@@ -317,7 +317,7 @@
     </script>
 
     <script>
-        function santaCruz(){
+        function textForm(city){
             clearMasterChildren();
             var containerDiv = document.createElement("div");
             containerDiv.classList.add("container");
@@ -325,7 +325,15 @@
             // Create title
             var title = document.createElement("h1");
             title.classList.add("mt-5", "mb-4");
-            title.textContent = "Santa Cruz de Tenerife";
+
+            //map of cities from small code to full code, example: santjosep -> Sant Josep de Sa Talaia
+            const cityMap = {
+                "santacruz": "Santa Cruz de Tenerife",
+                "santaeulalia": "Santa Eulalia",
+                "palma": "Palma",
+                "santjosep": "Sant Josep de Sa Talaia",
+            };
+            title.textContent = cityMap[city];
             containerDiv.appendChild(title);
 
             // Create form
@@ -346,33 +354,15 @@
             titleInput.setAttribute("placeholder", "20 dígitos numéricos");
             form.appendChild(titleInput);
 
-           /* // Create subtitle input field
-            var subtitleLabel = document.createElement("label");
-            subtitleLabel.setAttribute("for", "subtitle");
-            subtitleLabel.textContent = "Subtitle";
-            form.appendChild(subtitleLabel);
-
-            var subtitleInput = document.createElement("input");
-            subtitleInput.setAttribute("type", "text");
-            subtitleInput.classList.add("form-control");
-            subtitleInput.setAttribute("id", "subtitle");
-            subtitleInput.setAttribute("placeholder", "Enter subtitle");
-            form.appendChild(subtitleInput);*/
 
             // Create submit button
             var submitButton = document.createElement("button");
             submitButton.setAttribute("type", "button");
             submitButton.classList.add("btn", "btn-primary");
             submitButton.textContent = "Validar";
-
-            submitButton.addEventListener("click", function() {
-                // Call your function here with the input from titleInput
-                const code = titleInput.value;
-                submitForm("santacruz", code); // Replace "yourFunction" with the name of your function
-            });
-
-
+            submitButton.addEventListener("click", () => submitForm(city, titleInput.value) );
             form.appendChild(submitButton);
+
             document.getElementById('master').appendChild(containerDiv);
         }
     </script>
