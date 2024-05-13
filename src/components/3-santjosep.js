@@ -12,7 +12,7 @@ async function do_request(argument){
 
         const name = lines[6].trimStart();
         const id = lines[34];
-        const date = lines[37].match(dateRegex);
+        const date = lines[37].match(dateRegex)[0];
 
         //console.log(name);
         //console.log(id)
