@@ -4,7 +4,8 @@ const dateRegex = /\d{2}\/\d{2}\/\d{4}/;
 
 
 async function do_request(argument){
-    crawler(argument).then(function(response){
+    const url = "http://www.santjosepdesatalaia.es/validarcsv.aspx?csv=" + argument;
+    return crawler(url).then(function(response){
         // handle response
         //console.log(response);
         const lines = response.text.split('\n');
@@ -22,6 +23,6 @@ async function do_request(argument){
 }
 
 
-//do_request("http://www.santjosepdesatalaia.es/validarcsv.aspx?csv=176522553375331524954755935810");
+//do_request("176522553375331524954755935810");
 
 module.exports = do_request;
