@@ -53,7 +53,7 @@ const palma = require('./src/components/2-palma3.6');
 const santjosep = require('./src/components/3-santjosep');
 const santjoan = require('./src/components/4-santjoan');
 const ibiza = require('./src/components/5-ibiza');
-
+const alaior = require('./src/components/6-alaior');
 const santaCruz = require('./src/components/7-santacruz');
 
 
@@ -92,7 +92,11 @@ app.post('/submit', async (req, res) => {
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return res.json({name, date, id});
     }
-    //6, alaior
+    if (city == "alaior"){
+        const {name, id, date} = await alaior(code);
+        console.log("Name: ", name, "Date: ", date, "Id: ", id);
+        return res.json({name, date, id});
+    }
     if (city == "santacruz"){
         const {name, id, date} = await santaCruz(code);
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
