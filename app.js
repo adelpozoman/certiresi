@@ -53,7 +53,7 @@ const palma = require('./src/components/2-palma3.6');
 const santjosep = require('./src/components/3-santjosep');
 const santjoan = require('./src/components/4-santjoan');
 const ibiza = require('./src/components/5-ibiza');
-const alaior = require('./src/components/6-alaior');
+const {alaior_captcha, alaior_pdf, alaior_parse} = require('./src/components/6-alaior');
 const santaCruz = require('./src/components/7-santacruz');
 
 
@@ -61,6 +61,9 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+let cookieHeader = "";
+let alaior_url= "";
 
 app.post('/submit', async (req, res) => {
     // Process the form data
@@ -92,8 +95,16 @@ app.post('/submit', async (req, res) => {
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return res.json({name, date, id});
     }
+    if (city == "alaior-web"){
+        alaior_url = code;
+        cookieHeader = await alaior_captcha(code);
+        return res.send("ok");
+    }
     if (city == "alaior"){
-        const {name, id, date} = await alaior(code);
+        const captchaString = code;
+        const destinationPath = 'downloaded_file_alaior.pdf';
+        await alaior_pdf(alaior_url, destinationPath, captchaString, cookieHeader);
+        const {name, id, date} = await alaior_parse(destinationPath);
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return res.json({name, date, id});
     }
@@ -107,7 +118,14 @@ app.post('/submit', async (req, res) => {
     // Perform any necessary server-side operations (e.g., authentication, data processing)
 
     // Send a response back to the client
-    res.json({ message: 'Form submitted successfully!' });
+    //res.json({ message: 'Form submitted successfully!' });
+});
+
+
+app.get('/captcha.gif', (req, res) => {
+    console.log("SENDING CAPTCHA");
+    //res.sendFile(path.join(__dirname, 'public', 'captcha.gif'));
+    res.sendFile(path.join(__dirname, 'captcha.gif'));
 });
 
 

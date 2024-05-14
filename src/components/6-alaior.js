@@ -6,7 +6,7 @@ const readline = require("readline");
 
 
 
-async function do_request(userCode, destinationPath) {
+async function alaior_captcha(userCode) {
     let respuesta;
     try {
         respuesta = await axios.get(userCode, {
@@ -69,7 +69,7 @@ async function do_request(userCode, destinationPath) {
 }
 
 
-async function do_difficult_request(userCode, destinationPath, captchaCode, cookieHeader) {
+async function alaior_pdf(userCode, destinationPath, captchaCode, cookieHeader) {
     console.log("start difficult request")
     //log captchaCode
 
@@ -163,7 +163,7 @@ async function do_difficult_request(userCode, destinationPath, captchaCode, cook
 
 
 
-async function parsePDF(pdfPath) {
+async function alaior_parse(pdfPath) {
     try {
         const dataBuffer = fs.readFileSync(pdfPath);
         const pdfData = await pdfParse(dataBuffer);
@@ -190,7 +190,7 @@ async function main(pdfUrl){
 
     // Download the PDF
     try {
-        const cookieHeader = await do_request(pdfUrl, destinationPath);
+        const cookieHeader = await alaior_captcha(pdfUrl);
 
         //await user input to solve captcha, request user input now
         const readline = require('node:readline');
@@ -202,11 +202,11 @@ async function main(pdfUrl){
         const captchaCode = await question("What's the captcha code???? ");  // Ask for user input
         rl.close();  // Close readline interface
 
-        await do_difficult_request(pdfUrl, destinationPath, captchaCode, cookieHeader);
+        await alaior_pdf(pdfUrl, destinationPath, captchaCode, cookieHeader);
 
 
         // Parse the downloaded PDF
-        const { name, date, id } = await parsePDF(destinationPath);
+        const { name, date, id } = await alaior_parse(destinationPath);
         return { name, date, id };
 
     } catch (error) {
@@ -217,4 +217,4 @@ async function main(pdfUrl){
 
 //main();
 
-module.exports = main;
+module.exports = {alaior_captcha, alaior_pdf, alaior_parse}

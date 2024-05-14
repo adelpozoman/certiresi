@@ -10,6 +10,26 @@
 <!--    <script src="qr-scanner.umd.min.js"></script>-->
 
     <script>
+        window.getCookie = function(name) {
+            let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if (match) return match[2];
+        }
+
+        window.deleteCookie = function(name) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
+        window.setCookie = function(name, value) {
+            document.cookie = name + "=" + value;
+        }
+
+    </script>
+
+
+
+
+
+    <script>
         function submitForm(city, code) {
             let data = {
                 city: city,
@@ -21,6 +41,16 @@
             xhr.setRequestHeader('Content-Type', 'application/json'); // Set the content type to JSON
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 300) {
+                    if (city == "alaior-web") {
+
+                        console.log("SERVER RESPONSE IS:::::" + xhr.responseText);
+                        //setCookie("alaior-cookieHeader=", xhr.responseText);
+                        showCaptchaForm("alaior");
+                        return;
+                    }
+
+
+
                     var responseData = JSON.parse(xhr.responseText);
                     // Update page based on response
                     //document.getElementById('result').innerText = responseData.message;
@@ -169,6 +199,95 @@
     </script>
 
 
+
+    <script>
+        function sendCaptcha(city, captcha_string){
+            //send request to /submit with city and captcha
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/submit', true);
+            xhr.setRequestHeader('Content-Type', 'application/json'); // Set the content type to JSON
+
+            xhr.onload = function() { //request captcha
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log("SERVER RESPONSE IS:::::" + xhr.responseText);
+                    camera2(city);
+                } else {
+                    console.error('Request failed with status code ' + xhr.status);
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error('Request failed');
+            };
+
+            // Convert the data object to JSON and send it in the request body
+            let data = {
+                city: city+"-fillForm",
+                code: captcha_string
+            };
+
+            xhr.send(JSON.stringify(data));
+
+        }
+    </script>
+
+
+
+    <script>
+        function showCaptchaForm(city){
+                clearMasterChildren();
+                var containerDiv = document.createElement("div");
+                containerDiv.classList.add("container");
+
+                // Create title
+                var title = document.createElement("h1");
+                title.classList.add("mt-5", "mb-4");
+                title.textContent = "Captcha";
+
+                containerDiv.appendChild(title);
+
+                // Create form
+                var form = document.createElement("form");
+                form.id = "inputForm";
+                containerDiv.appendChild(form);
+
+                // Create title input field
+                var titleLabel = document.createElement("label");
+                titleLabel.setAttribute("for", "title");
+                titleLabel.textContent = "Captcha";
+                form.appendChild(titleLabel);
+
+                var titleInput = document.createElement("input");
+                titleInput.setAttribute("type", "text");
+                titleInput.classList.add("form-control");
+                titleInput.setAttribute("id", "title");
+                titleInput.setAttribute("placeholder", "Introduce el captcha");
+                form.appendChild(titleInput);
+
+                //create captcha image from server: captcha.gif
+                var captchaImage = document.createElement("img");
+                captchaImage.setAttribute("src", "/captcha.gif");
+                captchaImage.setAttribute("alt", "captcha");
+                form.appendChild(captchaImage);
+
+                // Create submit button
+                var submitButton = document.createElement("button");
+                submitButton.setAttribute("type", "button");
+                submitButton.classList.add("btn", "btn-primary");
+                submitButton.textContent = "Validar";
+                //submit to sendCaptcha(captcha) function the city (argument) and the value of the input field
+
+                submitButton.addEventListener("click", () => submitForm(city, titleInput.value) );
+
+                form.appendChild(submitButton);
+
+                document.getElementById('master').appendChild(containerDiv);
+
+        }
+    </script>
+
+
+
     <script>
         function clearMasterChildren() {
             var master = document.getElementById('master');
@@ -217,6 +336,12 @@
             card4.innerHTML = '<div class="card-body"><h5 class="card-title">Ibiza</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(card4);
 
+            var card5 = document.createElement('div');
+            card5.setAttribute('class', 'card w-100 h-20 text-center border rounded');
+            card5.setAttribute('id', 'card5');
+            card5.setAttribute('onclick', 'camera2("alaior-web")');
+            card5.innerHTML = '<div class="card-body"><h5 class="card-title">Alaior</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
+            document.getElementById('master').appendChild(card5);
         }
     </script>
 
