@@ -262,6 +262,13 @@
                 titleInput.setAttribute("placeholder", "Introduce el captcha");
                 form.appendChild(titleInput);
 
+                titleInput.addEventListener("keypress", function(event) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        submitForm(city, titleInput.value);
+                    }
+                });
+
                 //create captcha image from server: captcha.gif
                 var captchaImage = document.createElement("img");
                 captchaImage.setAttribute("src", "/captcha.gif");
