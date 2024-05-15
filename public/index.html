@@ -42,7 +42,6 @@
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     if (city == "alaior-web") {
-
                         console.log("SERVER RESPONSE IS:::::" + xhr.responseText);
                         //setCookie("alaior-cookieHeader=", xhr.responseText);
                         showCaptchaForm("alaior");
@@ -162,7 +161,7 @@
             if (devices && devices.length) {
                 var cameraId = devices[0].id;
                 // .. use this to start scanning.
-                const html5QrCode = new Html5Qrcode(/* element id */ "backCamera", /* verbose= */ false);
+                html5QrCode = new Html5Qrcode(/* element id */ "backCamera", /* verbose= */ false);
                 html5QrCode.start(
                     { facingMode: "environment" },
                     {
@@ -194,7 +193,6 @@
         }).catch(err => {
             // handle err
         });
-
     }
     </script>
 
@@ -304,42 +302,42 @@
             cards[0] = document.createElement('div');
             cards[0].setAttribute('class', 'card w-100 h-20 text-center border rounded');
             cards[0].setAttribute('id', 'cards[0]');
-            cards[0].setAttribute('onclick', 'camera2("santaeulalia")');
+            cards[0].setAttribute('onclick', 'santaEulalia()');
             cards[0].innerHTML = '<div class="card-body"><h5 class="card-title">Santa Eulalia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(cards[0]);
 
             var card1 = document.createElement('div');
             card1.setAttribute('class', 'card w-100 h-20 text-center border rounded');
             card1.setAttribute('id', 'card1');
-            card1.setAttribute('onclick', 'camera2("palma")');
+            card1.setAttribute('onclick', 'palma()');
             card1.innerHTML = '<div class="card-body"><h5 class="card-title">Palma</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(card1);
 
             var card2 = document.createElement('div');
             card2.setAttribute('class', 'card w-100 h-20 text-center border rounded');
             card2.setAttribute('id', 'card2');
-            card2.setAttribute('onclick', 'textForm("santjosep")');
+            card2.setAttribute('onclick', 'santJosep()');
             card2.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Josep de Sa Talaia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(card2);
 
             var card3 = document.createElement('div');
             card3.setAttribute('class', 'card w-100 h-20 text-center border rounded');
             card3.setAttribute('id', 'card3');
-            card3.setAttribute('onclick', 'camera2("santjoan")');
+            card3.setAttribute('onclick', 'santJoan()');
             card3.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Joan de Labritja</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(card3);
 
             var card4 = document.createElement('div');
             card4.setAttribute('class', 'card w-100 h-20 text-center border rounded');
             card4.setAttribute('id', 'card4');
-            card4.setAttribute('onclick', 'camera2("ibiza")');
+            card4.setAttribute('onclick', 'ibiza()');
             card4.innerHTML = '<div class="card-body"><h5 class="card-title">Ibiza</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(card4);
 
             var card5 = document.createElement('div');
             card5.setAttribute('class', 'card w-100 h-20 text-center border rounded');
             card5.setAttribute('id', 'card5');
-            card5.setAttribute('onclick', 'camera2("alaior-web")');
+            card5.setAttribute('onclick', 'alaior()');
             card5.innerHTML = '<div class="card-body"><h5 class="card-title">Alaior</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
             document.getElementById('master').appendChild(card5);
         }
@@ -347,6 +345,49 @@
 
 
     <script>
+        function santaEulalia(){
+            camera2("santaeulalia");
+            addCancelButton();
+        }
+
+        function palma(){
+            camera2("palma");
+            addCancelButton();
+        }
+
+        function santJosep(){
+            clearMasterChildren();
+            addTextForm("santjosep");
+            addCancelButton();
+        }
+
+        function santJoan(){
+            camera2("santjoan");
+            addCancelButton();
+        }
+
+        function ibiza(){
+            camera2("ibiza");
+            addTextForm("ibiza");
+            addCancelButton();
+        }
+
+        function alaior(){
+            camera2("alaior-web");
+            addCancelButton();
+        }
+
+        function santaCruz(){
+            clearMasterChildren();
+            addTextForm("santacruz");
+            addCancelButton();
+        }
+
+
+
+
+
+
         function fillMasterWithCommunityCards(){
             document.getElementById("master").innerHTML ='<div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera2" onclick="showBaleares()">\n' +
                 '        <div class="card-body">\n' +
@@ -355,7 +396,7 @@
                 '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
                 '        </div>\n' +
                 '    </div>\n' +
-                '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick=\'textForm("santacruz")\'>\n' +
+                    '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="santaCruz()">\n' +
                 '        <div class="card-body">\n' +
                 '            <h5 class="card-title">Islas Canarias</h5>\n' +
                 '            <p class="card-text">Reconocerá Santa Cruz de Tenerife</p>\n' +
@@ -442,8 +483,7 @@
     </script>
 
     <script>
-        function textForm(city){
-            clearMasterChildren();
+        function addTextForm(city){
             var containerDiv = document.createElement("div");
             containerDiv.classList.add("container");
 
@@ -493,9 +533,39 @@
             submitButton.setAttribute("type", "button");
             submitButton.classList.add("btn", "btn-primary");
             submitButton.textContent = "Validar";
+            submitButton.style.width = "100%";
             submitButton.addEventListener("click", () => submitForm(city, titleInput.value) );
             form.appendChild(submitButton);
 
+            document.getElementById('master').appendChild(containerDiv);
+        }
+    </script>
+
+    <script>
+        function addCancelButton(){
+            //add a cancel button as a child of master
+            var cancelButton = document.createElement("button");
+            cancelButton.setAttribute("type", "button");
+            cancelButton.classList.add("btn", "btn-danger");
+            cancelButton.textContent = "Cancelar";
+            cancelButton.style.width = "100%";
+
+            cancelButton.addEventListener("click", () => {
+                clearMasterChildren();
+                fillMasterWithCommunityCards()
+
+                if(html5QrCode && html5QrCode.isScanning){  //check if const html5QrCode exists, if it does then stop it
+                    html5QrCode.stop().then(ignore => {
+                        //console.log("STOPPING CAMERA!")  // QR Code scanning is stopped.
+                    }).catch(err => {
+                        // Stop failed, handle it.
+                    });
+                }
+            });
+
+            var containerDiv = document.createElement("div");
+            containerDiv.classList.add("container");
+            containerDiv.appendChild(cancelButton);
             document.getElementById('master').appendChild(containerDiv);
         }
     </script>
@@ -509,29 +579,12 @@
 <body>
 
 <div id="master" style="height: 100vh; background-color: rgba(255,0,0,0.1);">
-<!--    <div class="card w-100 h-50 text-center border rounded" style="align-items: center;" id="futureCamera2" onclick="showBaleares()">-->
-<!--        <div class="card-body">-->
-<!--            <h5 class="card-title">Illes Balears</h5>-->
-<!--            <p class="card-text">Reconoce certificados de santaEulalia, palma, santjosep, santjoan, ibiza y alaior.</p>-->
-<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="camera()">-->
-<!--        <div class="card-body">-->
-<!--            <h5 class="card-title">Illes Canarias</h5>-->
-<!--            <p class="card-text">Reconocerá Santa Cruz de Tenerife</p>-->
-<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
 </div>
-
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>fillMasterWithCommunityCards()</script>
+<script>let html5QrCode;</script>
 
 </body>
 </html>
