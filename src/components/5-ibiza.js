@@ -1,7 +1,5 @@
 const crawler = require('crawler-request');
 
-const dateRegex = /\d{2}\/\d{2}\/\d{4}/;
-
 
 function convertTextDateToDDMMYYYY(textDate) {
     // Define month names mapping
@@ -31,7 +29,7 @@ async function do_request(userCode) {
     const response = await crawler(url);
     //crawler(url).then(function(response){
         // handle response
-        console.log(response);
+        //console.log(response);
         const lines = response.text.split('\n');
 
 
@@ -40,9 +38,9 @@ async function do_request(userCode) {
         const date = lines[17];
         const formattedDate = convertTextDateToDDMMYYYY(date);
 
-        console.log(nombre.join(' '));
-        console.log(lines[7].split(' ')[4]);
-        console.log(formattedDate);
+        //console.log(nombre.join(' '));
+        //console.log(lines[7].split(' ')[4]);
+        //console.log(formattedDate);
 
         return {name: nombre.join(' '), id: lines[7].split(' ')[4], date: formattedDate};
     //});
