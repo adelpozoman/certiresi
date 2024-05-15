@@ -6,18 +6,18 @@ async function do_request(userCode) {
     try {
         const respuesta = await axios.post(userCode,
             {
-            //code: userCode
+            //unused
         });
-        // process response here
         //console.log(respuesta.data);
 
         const $ = cheerio.load(respuesta.data);
         const name = $('#ctl00_ContentPlaceHolder2_LabelNombre');
-        console.log(name.text());
         const date = $('#ctl00_ContentPlaceHolder2_LabelFecha');
-        console.log(date.text());
         const id = $('#ctl00_ContentPlaceHolder2_LabelDNI');
-        console.log(id.text());
+
+        //console.log(name.text());
+        //console.log(date.text());
+        //console.log(id.text());
 
         //return name, date and id
         return {
@@ -25,7 +25,6 @@ async function do_request(userCode) {
             date: date.text(),
             id: id.text()
         };
-
     } catch (error) {
         console.error('Error trying to request:', error);
     }
