@@ -168,6 +168,7 @@ async function alaior_parse(pdfPath) {
         const dataBuffer = fs.readFileSync(pdfPath);
         const pdfData = await pdfParse(dataBuffer);
         //console.log(pdfData.text);
+        fs.unlink(pdfPath, err => { if (err) console.error(err); } );
 
         const lines = pdfData.text.split('\n');
         const name = lines[18].match(/Que(.*?),/)[1].trimStart();
@@ -186,7 +187,7 @@ async function alaior_parse(pdfPath) {
 
 
 async function main(pdfUrl){
-    const destinationPath = 'downloaded_file_alaior.pdf'; // Path to save the downloaded PDF
+    const destinationPath = 'cer_alaior.pdf'; // Path to save the downloaded PDF
 
     // Download the PDF
     try {
