@@ -101,12 +101,16 @@ async function do_request(userCode) {
         const writer = fs.createWriteStream("santacruz.pdf");
         pdfRequest.data.pipe(writer);
 
-        writer.on('finish', () => {
-            //console.log('PDF download request success.');
-        });
+        await new Promise((resolve, reject) => {
+            writer.on('finish', () => {
+                //console.log('PDF download request success.');
+                resolve();
+            });
 
-        writer.on('error', err => {
-            console.error('Error downloading PDF:', err);
+            writer.on('error', err => {
+                console.error('Error downloading PDF:', err);
+                reject(err);
+            });
         });
 
         //parse PDF to obtain name, date and id
