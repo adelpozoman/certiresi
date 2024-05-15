@@ -6,16 +6,13 @@ const pdfParse = require('pdf-parse');
 async function downloadPDF(url, destination) {
     let parts = url.split('?id=');
     let newUrl = "https://seuelectronica.palma.es/redosefront/mostrarDocumento.do?id=" + parts[1];
-    console.log(newUrl);
-
-
-    const writer = fs.createWriteStream(destination);
+    //console.log(newUrl);
 
     const responseBase = await axios.post(url, {
         //
     });
     const cookie = responseBase.headers['set-cookie'];
-    console.log(cookie);
+    //console.log(cookie);
 
     const response = await axios({
         method: 'GET',
@@ -27,6 +24,7 @@ async function downloadPDF(url, destination) {
         responseType: 'stream'
     });
 
+    const writer = fs.createWriteStream(destination);
     response.data.pipe(writer);
 
     return new Promise((resolve, reject) => {
@@ -41,16 +39,19 @@ async function parsePDF(pdfPath) {
         const dataBuffer = fs.readFileSync(pdfPath);
         const pdfData = await pdfParse(dataBuffer);
 
+        fs.unlink(pdfPath, err => {  //asynchronously delete the file
+            if (err) console.error(err);
+        });
 
+        //console.log(pdfData)
         const lines = pdfData.text.split('\n');
         const idLine = lines[39].trim();
         const dateLine = lines[40].trim();
         const nameLine = lines[43].trim();
+        //console.log(idLine)
+        //console.log(dateLine)
+        //console.log(nameLine)
 
-        console.log(pdfData)
-        console.log(idLine)
-        console.log(dateLine)
-        console.log(nameLine)
         return { idLine, dateLine, nameLine };
 
     } catch (error) {
@@ -61,14 +62,13 @@ async function parsePDF(pdfPath) {
 // Example usage
 async function do_request(argument) {
     const pdfUrl = argument; // URL of the PDF to download
-    const destinationPath = 'example.pdf'; // Path to save the downloaded PDF
+    const destinationPath = 'cer_palma.pdf'; // Path to save the downloaded PDF
 
     // Download the PDF
     try {
         await downloadPDF(pdfUrl, destinationPath);
-        await console.log('PDF downloaded successfully.');
-        // Parse the downloaded PDF
-        return await parsePDF(destinationPath);
+        //console.log('PDF downloaded successfully.');
+        return await parsePDF(destinationPath);  // Parse the downloaded PDF
     } catch (error) {
         console.error('Error downloading or parsing PDF:', error);
     }
