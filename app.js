@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
@@ -102,7 +103,7 @@ app.post('/submit', async (req, res) => {
     }
     if (city == "alaior"){
         const captchaString = code;
-        const destinationPath = 'downloaded_file_alaior.pdf';
+        const destinationPath = 'cer_alaior.pdf';
         await alaior_pdf(alaior_url, destinationPath, captchaString, cookieHeader);
         const {name, id, date} = await alaior_parse(destinationPath);
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
@@ -125,7 +126,12 @@ app.post('/submit', async (req, res) => {
 app.get('/captcha.gif', (req, res) => {
     console.log("SENDING CAPTCHA");
     //res.sendFile(path.join(__dirname, 'public', 'captcha.gif'));
-    res.sendFile(path.join(__dirname, 'captcha.gif'));
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', 0);
+    res.sendFile(path.join(__dirname, 'captcha.gif'), ()=>
+        fs.unlink('captcha.gif', err => { if (err) console.error(err); })
+    );
 });
 
 
