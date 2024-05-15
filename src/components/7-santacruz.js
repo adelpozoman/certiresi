@@ -25,12 +25,8 @@ function convertTextDateToDDMMYYYY(textDate) {
 
 
 
-
-
-
-
-
 async function do_request(userCode) {
+    const destinationPath = "cer_santacruz.pdf"
     try {
         const baseUrl = "https://ovc.santacruzdetenerife.es/sta/CarpetaPublic/Public?APP_CODE=STA&PAGE_CODE=VALDOCS";
         const response = await axios.get(baseUrl,
@@ -68,8 +64,6 @@ async function do_request(userCode) {
         const formData = querystring.stringify(payload);
 
 
-
-
         const response2 = await axios.post('https://ovc.santacruzdetenerife.es/sta/CarpetaPublic/submitAjax.aa',
             formData,
             {
@@ -79,7 +73,6 @@ async function do_request(userCode) {
                     }
             }
         );
-
         //console.log(response2.data);
 
 
@@ -89,8 +82,7 @@ async function do_request(userCode) {
         //console.log(pdfLink);
 
 
-        //axios get to obtain the pdf
-        const pdfRequest = await axios.get(pdfLink, {
+        const pdfRequest = await axios.get(pdfLink, {  //axios get to obtain the pdf
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/124.0',
                 'Cookie': cookieHeader,
@@ -98,7 +90,7 @@ async function do_request(userCode) {
             responseType: 'stream',
         });
 
-        const writer = fs.createWriteStream("santacruz.pdf");
+        const writer = fs.createWriteStream(destinationPath);
         pdfRequest.data.pipe(writer);
 
         await new Promise((resolve, reject) => {
@@ -116,10 +108,12 @@ async function do_request(userCode) {
         //parse PDF to obtain name, date and id
         const pdfParse = require('pdf-parse');
 
-        const dataBuffer = fs.readFileSync("santacruz.pdf");
+        const dataBuffer = fs.readFileSync(destinationPath);
         const pdfData = await pdfParse(dataBuffer);
-
         //console.log(pdfData.text);
+        fs.unlink(destinationPath, err => { if (err) console.error(err); } );
+
+
 
         const lines = pdfData.text.split('\n');
 
@@ -128,8 +122,7 @@ async function do_request(userCode) {
         const dateString = lines[33].split(",")[1].trimStart();  //En SANTA CRUZ DE TENERIFE, 17 de febrero de 2019
         const date = convertTextDateToDDMMYYYY(dateString)
 
-        //console.log("Name: " + name + " Date: " + date + " Id: " + id);
-
+        console.log("Name: " + name + " Date: " + date + " Id: " + id);
         return {
             name: name,
             date: date,
