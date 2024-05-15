@@ -404,7 +404,7 @@
 
             const h1 = document.createElement("h1");
             h1.classList.add("mt-5");
-            h1.textContent = "Information";
+            h1.textContent = "Información sobre el certificado";
 
             const div = document.createElement("div");
             div.classList.add("mt-4", "text-center");
@@ -478,6 +478,14 @@
             titleInput.setAttribute("id", "title");
             titleInput.setAttribute("placeholder", "20 dígitos numéricos");
             form.appendChild(titleInput);
+
+            // Prevent form submission on Enter key press
+            titleInput.addEventListener("keypress", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    submitForm(city, titleInput.value);
+                }
+            });
 
 
             // Create submit button
