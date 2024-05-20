@@ -2,26 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require("fs");
 
-
-function convertTextDateToDDMMYYYY(textDate) {
-    // Define month names mapping
-    const monthNames = {
-        'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04', 'mayo': '05',
-        'junio': '06', 'julio': '07', 'agosto': '08', 'septiembre': '09', 'octubre': '10',
-        'noviembre': '11', 'diciembre': '12'
-    };
-
-    // Extract day, month, and year using regular expression
-    const [, day, monthName, year] = textDate.match(/(\d{1,2}) de (\w+) de (\d{4})/);
-
-    // Get numerical representation of the month
-    const month = monthNames[monthName.toLowerCase()];
-
-    // Format the date as DD/MM/YYYY
-    const formattedDate = `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
-
-    return formattedDate;
-}
+const convertTextToDate = require("./convert-text-to-date");
 
 
 
@@ -120,7 +101,7 @@ async function do_request(userCode) {
         const name = lines[14].trimStart();
         const id = lines[16].trimStart();
         const dateString = lines[33].split(",")[1].trimStart();  //En SANTA CRUZ DE TENERIFE, 17 de febrero de 2019
-        const date = convertTextDateToDDMMYYYY(dateString)
+        const date = convertTextToDate(dateString)
 
         console.log("Name: " + name + " Date: " + date + " Id: " + id);
         return {

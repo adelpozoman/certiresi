@@ -2,32 +2,11 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require("fs");
 
-
-
 const { fromPath } = require('pdf2pic');
 const { createWorker } = require('tesseract.js');
 
+const convertTextToDate = require("./convert-text-to-date");
 
-
-function convertTextDateToDDMMYYYY(textDate) {
-    // Define month names mapping
-    const monthNames = {
-        'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04', 'mayo': '05',
-        'junio': '06', 'julio': '07', 'agosto': '08', 'septiembre': '09', 'octubre': '10',
-        'noviembre': '11', 'diciembre': '12'
-    };
-
-    // Extract day, month, and year using regular expression
-    const [, day, monthName, year] = textDate.match(/(\d{1,2}) de (\w+) de (\d{4})/);
-
-    // Get numerical representation of the month
-    const month = monthNames[monthName.toLowerCase()];
-
-    // Format the date as DD/MM/YYYY
-    const formattedDate = `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
-
-    return formattedDate;
-}
 
 
 async function parse_pdf(destinationPath){
@@ -77,7 +56,7 @@ async function parse_pdf(destinationPath){
 
         const name = matchName ? matchName[1] : null;
         const id = matchId ? matchId[1] : null;
-        const date = convertTextDateToDDMMYYYY(lines[18])
+        const date = convertTextToDate(lines[18])
         return { name, id, date };
 }
 
