@@ -488,7 +488,7 @@
     <script>
         function showWaiting(){
             const container = document.createElement("div");
-            container.classList.add("container");
+            container.classList.add("container","d-flex","justify-content-center", "align-items-center", "vh-100");
 
             const row = document.createElement("div");
             row.classList.add("row");
@@ -500,7 +500,16 @@
             h1.classList.add("mt-5");
             h1.textContent = "Esperando respuesta";
 
+
+            const spinner = document.createElement("div");
+            spinner.classList.add("spinner-border", "text-primary", "m-5");
+            spinner.style.width = "8rem";
+            spinner.style.height = "8rem";
+            spinner.style.borderWidth = "1rem";
+            spinner.setAttribute("role", "status");
+
             col.appendChild(h1);
+            col.appendChild(spinner);
             row.appendChild(col);
             container.appendChild(row);
 
