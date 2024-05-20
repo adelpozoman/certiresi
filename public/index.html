@@ -362,6 +362,7 @@
                 card.appendChild(cardBody);
                 masterDiv.appendChild(card);
             });
+            addCancelButton();
         }
     </script>
 
@@ -429,12 +430,12 @@
                 {
                     name: 'Illes Balears',
                     onclick: showBaleares,
-                    description: 'Reconoce certificados de santaEulalia, palma, santjosep, santjoan, ibiza y alaior.'
+                    description: 'Reconoce certificados de Santa Eulalia, Palma, Sant Josep, Sant Joan, Ibiza y Alaior.'
                 },
                 {
                     name: 'Islas Canarias',
                     onclick: santaCruz,
-                    description: 'Reconocerá Santa Cruz de Tenerife'
+                    description: 'Reconoce certificados de Santa Cruz de Tenerife'
                 }
             ];
 
@@ -691,9 +692,9 @@
 
 
 </head>
-<body>
+<body class="container-fluid" style="background-color: rgba(255,0,0,0.1);">
 
-<div id="master" style="height: 80vh; background-color: rgba(255,0,0,0.1);">
+<div id="master" style="height: 80vh;">
 </div>
 
 
