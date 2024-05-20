@@ -299,6 +299,7 @@
             while (master.firstChild) {
                 master.removeChild(master.firstChild);
             }
+            addHeading();
         }
     </script>
 
@@ -578,6 +579,15 @@
     </script>
 
 
+    <script>
+        function addHeading(){
+            //add h1 bootstrap heading to master that says certiresi
+            const heading = document.createElement("h1");
+            heading.classList.add("display-1", "text-center", "mb-4", "text-uppercase", "text-dark", "fw-bold", "border-bottom", "pb-3");
+            heading.textContent = "Certiresi";
+            document.getElementById('master').appendChild(heading);
+        }
+    </script>
 
 
 
