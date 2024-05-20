@@ -271,7 +271,8 @@
 
                 //create captcha image from server: captcha.gif
                 var captchaImage = document.createElement("img");
-                captchaImage.setAttribute("src", "/captcha.gif");
+                //captchaImage.setAttribute("src", "/captcha.gif");  //firefox does not honor no-cache response
+                captchaImage.setAttribute("src", "/captcha.gif?timestamp=" + new Date().getTime());
                 captchaImage.setAttribute("alt", "captcha");
                 form.appendChild(captchaImage);
 
