@@ -63,8 +63,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let cookieHeader = "";
-let alaior_url= "";
 
 app.post('/submit', async (req, res) => {
     // Process the form data
@@ -97,14 +95,12 @@ app.post('/submit', async (req, res) => {
         return res.json({name, date, id});
     }
     if (city == "alaior-web"){
-        alaior_url = code;
-        cookieHeader = await alaior_captcha(code);
-        return res.send("ok");
+        let webCookie = await alaior_captcha(code);
+        return res.send(webCookie);
     }
     if (city == "alaior"){
-        const captchaString = code;
         const destinationPath = 'cer_alaior.pdf';
-        await alaior_pdf(alaior_url, destinationPath, captchaString, cookieHeader);
+        await alaior_pdf(code.code, destinationPath, code.captchaString, code.cookie);
         const {name, id, date} = await alaior_parse(destinationPath);
         console.log("Name: ", name, "Date: ", date, "Id: ", id);
         return res.json({name, date, id});

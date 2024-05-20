@@ -43,8 +43,8 @@
                 if (xhr.status >= 200 && xhr.status < 300) {
                     if (city == "alaior-web") {
                         console.log("SERVER RESPONSE IS:::::" + xhr.responseText);
-                        //setCookie("alaior-cookieHeader=", xhr.responseText);
-                        showCaptchaForm("alaior");
+                        let cookie = xhr.responseText;
+                        showCaptchaForm("alaior", code, JSON.parse(cookie));
                         return;
                     }
 
@@ -232,8 +232,9 @@
 
 
     <script>
-        function showCaptchaForm(city){
+        function showCaptchaForm(city, webUrl, cookie){
                 clearMasterChildren();
+                addSubHeading(city)
                 var containerDiv = document.createElement("div");
                 containerDiv.classList.add("container");
 
@@ -265,7 +266,11 @@
                 titleInput.addEventListener("keypress", function(event) {
                     if (event.keyCode === 13) {
                         event.preventDefault();
-                        submitForm(city, titleInput.value);
+                        submitForm(city, {
+                            code: webUrl,
+                            cookie: cookie,
+                            captchaString: titleInput.value
+                        });
                     }
                 });
 
@@ -283,7 +288,11 @@
                 submitButton.textContent = "Validar";
                 //submit to sendCaptcha(captcha) function the city (argument) and the value of the input field
 
-                submitButton.addEventListener("click", () => submitForm(city, titleInput.value) );
+                submitButton.addEventListener("click", () => submitForm(city, {
+                    code: webUrl,
+                    cookie: cookie,
+                    captchaString: titleInput.value
+                }) );
 
                 form.appendChild(submitButton);
 
