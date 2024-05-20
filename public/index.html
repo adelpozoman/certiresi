@@ -550,9 +550,13 @@
             const sixMonthsAgo = new Date(today.setMonth(today.getMonth() - 6));
             //console.log(date, sixMonthsAgo)
             if(date < sixMonthsAgo){
+                const strongText = document.createElement("strong");
+                strongText.textContent = "¡Alerta! ";
+
                 const warning = document.createElement("div");
-                warning.classList.add("alert", "alert-warning", "mt-4");
-                warning.textContent = "El certificado ha caducado";
+                warning.classList.add("alert", "alert-warning", "mt-4", "text-center");
+                warning.appendChild(strongText);
+                warning.appendChild(document.createTextNode("El certificado ha caducado"));
                 container.appendChild(warning);
             }
 
