@@ -304,50 +304,49 @@
     </script>
 
     <script>
-        function showBaleares(){
-            clearMasterChildren();
-            let cards = new Array(8);
-            cards[0] = document.createElement('div');
-            cards[0].setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            cards[0].setAttribute('id', 'cards[0]');
-            cards[0].setAttribute('onclick', 'santaEulalia()');
-            cards[0].innerHTML = '<div class="card-body"><h5 class="card-title">Santa Eulalia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(cards[0]);
+        function showBaleares() {
+            clearMasterChildren(); // Supongo que esta función la tienes definida en otro lugar
 
-            var card1 = document.createElement('div');
-            card1.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            card1.setAttribute('id', 'card1');
-            card1.setAttribute('onclick', 'palma()');
-            card1.innerHTML = '<div class="card-body"><h5 class="card-title">Palma</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(card1);
+            const places = [
+                { name: 'Santa Eulalia', onclick: santaEulalia },
+                { name: 'Palma', onclick: palma },
+                { name: 'Sant Josep de Sa Talaia', onclick: santJosep },
+                { name: 'Sant Joan de Labritja', onclick: santJoan },
+                { name: 'Ibiza', onclick: ibiza },
+                { name: 'Alaior', onclick: alaior }
+            ];
 
-            var card2 = document.createElement('div');
-            card2.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            card2.setAttribute('id', 'card2');
-            card2.setAttribute('onclick', 'santJosep()');
-            card2.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Josep de Sa Talaia</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(card2);
+            const masterDiv = document.getElementById('master');
+            masterDiv.style.height = "100vh";
 
-            var card3 = document.createElement('div');
-            card3.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            card3.setAttribute('id', 'card3');
-            card3.setAttribute('onclick', 'santJoan()');
-            card3.innerHTML = '<div class="card-body"><h5 class="card-title">Sant Joan de Labritja</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(card3);
+            places.forEach((place, index) => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'w-100', 'h-20', 'text-center', 'border', 'rounded');
+                card.onclick = place.onclick;
 
-            var card4 = document.createElement('div');
-            card4.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            card4.setAttribute('id', 'card4');
-            card4.setAttribute('onclick', 'ibiza()');
-            card4.innerHTML = '<div class="card-body"><h5 class="card-title">Ibiza</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(card4);
+                const cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
 
-            var card5 = document.createElement('div');
-            card5.setAttribute('class', 'card w-100 h-20 text-center border rounded');
-            card5.setAttribute('id', 'card5');
-            card5.setAttribute('onclick', 'alaior()');
-            card5.innerHTML = '<div class="card-body"><h5 class="card-title">Alaior</h5><p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div>';
-            document.getElementById('master').appendChild(card5);
+                const title = document.createElement('h5');
+                title.classList.add('card-title');
+                title.textContent = place.name;
+
+                const text = document.createElement('p');
+                text.classList.add('card-text');
+                text.textContent = 'With supporting text below as a natural lead-in to additional content.';
+
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('btn', 'btn-primary');
+                link.textContent = 'Go somewhere';
+
+                cardBody.appendChild(title);
+                cardBody.appendChild(text);
+                cardBody.appendChild(link);
+
+                card.appendChild(cardBody);
+                masterDiv.appendChild(card);
+            });
         }
     </script>
 
@@ -396,20 +395,63 @@
 
 
 
-        function fillMasterWithCommunityCards(){
-            document.getElementById("master").innerHTML ='<div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera2" onclick="showBaleares()">\n' +
-                '        <div class="card-body">\n' +
-                '            <h5 class="card-title">Illes Balears</h5>\n' +
-                '            <p class="card-text">Reconoce certificados de santaEulalia, palma, santjosep, santjoan, ibiza y alaior.</p>\n' +
-                '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
-                '        </div>\n' +
-                '    </div>\n' +
-                    '    <div class="card w-100 h-50 text-center border rounded" style=";" id="futureCamera" onclick="santaCruz()">\n' +
-                '        <div class="card-body">\n' +
-                '            <h5 class="card-title">Islas Canarias</h5>\n' +
-                '            <p class="card-text">Reconocerá Santa Cruz de Tenerife</p>\n' +
-                '            <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
-                '        </div>';
+        function fillMasterWithCommunityCards() {
+            clearMasterChildren(); // Supongo que esta función la tienes definida en otro lugar
+
+            const places = [
+                {
+                    name: 'Illes Balears',
+                    onclick: showBaleares,
+                    description: 'Reconoce certificados de santaEulalia, palma, santjosep, santjoan, ibiza y alaior.'
+                },
+                {
+                    name: 'Islas Canarias',
+                    onclick: santaCruz,
+                    description: 'Reconocerá Santa Cruz de Tenerife'
+                }
+            ];
+
+            const masterDiv = document.getElementById('master');
+
+            masterDiv.style.height = "80vh";
+
+            places.forEach((place) => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'w-100', 'h-50', 'text-center', 'border', 'rounded');
+                card.onclick = place.onclick;
+
+                card.style.display = 'flex';
+                card.style.justifyContent = 'center';
+                card.style.alignItems = 'center';
+
+                const cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
+
+                cardBody.style.display = 'flex';
+                cardBody.style.flexDirection = 'column';
+                cardBody.style.justifyContent = 'center';
+                cardBody.style.alignItems = 'center';
+
+                const title = document.createElement('h5');
+                title.classList.add('card-title');
+                title.textContent = place.name;
+
+                const text = document.createElement('p');
+                text.classList.add('card-text');
+                text.textContent = place.description;
+
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('btn', 'btn-primary');
+                link.textContent = 'Go somewhere';
+
+                cardBody.appendChild(title);
+                cardBody.appendChild(text);
+                cardBody.appendChild(link);
+
+                card.appendChild(cardBody);
+                masterDiv.appendChild(card);
+            });
         }
     </script>
 
@@ -595,7 +637,7 @@
 </head>
 <body>
 
-<div id="master" style="height: 100vh; background-color: rgba(255,0,0,0.1);">
+<div id="master" style="height: 80vh; background-color: rgba(255,0,0,0.1);">
 </div>
 
 
