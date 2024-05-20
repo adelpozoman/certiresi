@@ -146,7 +146,6 @@
     <script>
 
     async function camera2(city) {
-        clearMasterChildren();
         var backCamera = document.createElement('div');
         backCamera.setAttribute('id', 'backCamera');
         document.getElementById('master').appendChild(backCamera);
@@ -208,6 +207,7 @@
             xhr.onload = function() { //request captcha
                 if (xhr.status >= 200 && xhr.status < 300) {
                     console.log("SERVER RESPONSE IS:::::" + xhr.responseText);
+                    clearMasterChildren();
                     camera2(city);
                 } else {
                     console.error('Request failed with status code ' + xhr.status);
@@ -353,39 +353,51 @@
 
     <script>
         function santaEulalia(){
+            clearMasterChildren();
+            addSubHeading("santaeulalia");
             camera2("santaeulalia");
             addCancelButton();
         }
 
         function palma(){
+            clearMasterChildren();
+            addSubHeading("palma");
             camera2("palma");
             addCancelButton();
         }
 
         function santJosep(){
             clearMasterChildren();
+            addSubHeading("santjosep");
             addTextForm("santjosep");
             addCancelButton();
         }
 
         function santJoan(){
+            clearMasterChildren();
+            addSubHeading("santjoan");
             camera2("santjoan");
             addCancelButton();
         }
 
         function ibiza(){
+            clearMasterChildren();
+            addSubHeading("ibiza");
             camera2("ibiza");
             addTextForm("ibiza");
             addCancelButton();
         }
 
         function alaior(){
+            clearMasterChildren();
+            addSubHeading("alaior");
             camera2("alaior-web");
             addCancelButton();
         }
 
         function santaCruz(){
             clearMasterChildren();
+            addSubHeading("santacruz");
             addTextForm("santacruz");
             addCancelButton();
         }
@@ -537,20 +549,6 @@
             var containerDiv = document.createElement("div");
             containerDiv.classList.add("container");
 
-            // Create title
-            var title = document.createElement("h1");
-            title.classList.add("mt-5", "mb-4");
-
-            //map of cities from small code to full code, example: santjosep -> Sant Josep de Sa Talaia
-            const cityMap = {
-                "santacruz": "Santa Cruz de Tenerife",
-                "santaeulalia": "Santa Eulalia",
-                "palma": "Palma",
-                "santjosep": "Sant Josep de Sa Talaia",
-            };
-            title.textContent = cityMap[city];
-            containerDiv.appendChild(title);
-
             // Create form
             var form = document.createElement("form");
             form.id = "inputForm";
@@ -631,6 +629,25 @@
         }
     </script>
 
+    <script>
+        function addSubHeading(text){
+            const cityMap = {
+                "santaeulalia": "Santa Eulalia",
+                "palma": "Palma de Mallorca",
+                "santjosep": "Sant Josep de Sa Talaia",
+                "santjoan": "Sant Joan de Labritja",
+                "ibiza": "Ibiza",
+                "alaior": "Alaior",
+                "santacruz": "Santa Cruz de Tenerife",
+            };
+
+            //add h2 bootstrap subheading to master with text
+            const subHeading = document.createElement("h2");
+            subHeading.classList.add("display-4", "text-center", "mb-4", "text-uppercase", "text-dark", "fw-bold");
+            subHeading.textContent = cityMap[text];
+            document.getElementById('master').appendChild(subHeading);
+        }
+    </script>
 
 
 
