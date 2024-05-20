@@ -65,57 +65,63 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.post('/submit', async (req, res) => {
-    // Process the form data
-    const city = req.body.city;
-    const code = req.body.code;
-    console.log(`City: ${city}, Code: ${code}`);
-    if (city == "santaeulalia"){
-        const {name, date, id} = await santa(code);
-        console.log("Name: ", name, "Date: ", date, "Id: ", id);
-        return res.json({name, date, id});
-    }
-    if (city == "palma"){
-        const {idLine, dateLine, nameLine} = await palma(code);
-        console.log("Id: ", idLine , "Date: ", dateLine, "Name: ", nameLine);
-        return res.json({"name":nameLine, "date":dateLine, "id":idLine});
-    }
-    if (city == "santjosep"){
-        const {name, id, date} = await santjosep(code);
-        console.log("Name: ", name, "Date: ", date, "Id: ", id);
-        return res.json({name, date, id});
-    }
-    if (city == "santjoan"){
-        const {name, id, date} = await santjoan(code);
-        console.log("Name: ", name, "Date: ", date, "Id: ", id);
-        return res.json({name, date, id});
-    }
-    if (city == "ibiza"){
-        const {name, id, date} = await ibiza(code);
-        console.log("Name: ", name, "Date: ", date, "Id: ", id);
-        return res.json({name, date, id});
-    }
-    if (city == "alaior-web"){
-        let webCookie = await alaior_captcha(code);
-        return res.send(webCookie);
-    }
-    if (city == "alaior"){
-        const destinationPath = 'cer_alaior.pdf';
-        await alaior_pdf(code.code, destinationPath, code.captchaString, code.cookie);
-        const {name, id, date} = await alaior_parse(destinationPath);
-        console.log("Name: ", name, "Date: ", date, "Id: ", id);
-        return res.json({name, date, id});
-    }
-    if (city == "santacruz"){
-        const {name, id, date} = await santaCruz(code);
-        console.log("Name: ", name, "Date: ", date, "Id: ", id);
-        return res.json({name, date, id});
-    }
+    try{
+        // Process the form data
+        const city = req.body.city;
+        const code = req.body.code;
+        console.log(`City: ${city}, Code: ${code}`);
+        if (city == "santaeulalia"){
+            const {name, date, id} = await santa(code);
+            console.log("Name: ", name, "Date: ", date, "Id: ", id);
+            return res.json({name, date, id});
+        }
+        if (city == "palma"){
+            const {idLine, dateLine, nameLine} = await palma(code);
+            console.log("Id: ", idLine , "Date: ", dateLine, "Name: ", nameLine);
+            return res.json({"name":nameLine, "date":dateLine, "id":idLine});
+        }
+        if (city == "santjosep"){
+            const {name, id, date} = await santjosep(code);
+            console.log("Name: ", name, "Date: ", date, "Id: ", id);
+            return res.json({name, date, id});
+        }
+        if (city == "santjoan"){
+            const {name, id, date} = await santjoan(code);
+            console.log("Name: ", name, "Date: ", date, "Id: ", id);
+            return res.json({name, date, id});
+        }
+        if (city == "ibiza"){
+            const {name, id, date} = await ibiza(code);
+            console.log("Name: ", name, "Date: ", date, "Id: ", id);
+            return res.json({name, date, id});
+        }
+        if (city == "alaior-web"){
+            let webCookie = await alaior_captcha(code);
+            return res.send(webCookie);
+        }
+        if (city == "alaior"){
+            const destinationPath = 'cer_alaior.pdf';
+            await alaior_pdf(code.code, destinationPath, code.captchaString, code.cookie);
+            const {name, id, date} = await alaior_parse(destinationPath);
+            console.log("Name: ", name, "Date: ", date, "Id: ", id);
+            return res.json({name, date, id});
+        }
+        if (city == "santacruz"){
+            const {name, id, date} = await santaCruz(code);
+            console.log("Name: ", name, "Date: ", date, "Id: ", id);
+            return res.json({name, date, id});
+        }
 
 
-    // Perform any necessary server-side operations (e.g., authentication, data processing)
+        // Perform any necessary server-side operations (e.g., authentication, data processing)
 
-    // Send a response back to the client
-    //res.json({ message: 'Form submitted successfully!' });
+        // Send a response back to the client
+        //res.json({ message: 'Form submitted successfully!' });
+    }
+    catch (error){
+        console.error('Error trying to request:', error);
+        res.json({ message: 'Error trying to request' });
+    }
 });
 
 

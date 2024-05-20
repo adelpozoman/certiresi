@@ -51,12 +51,16 @@
 
 
                     var responseData = JSON.parse(xhr.responseText);
-                    // Update page based on response
-                    //document.getElementById('result').innerText = responseData.message;
                     console.log(responseData);
-
-
-                    showResponse(responseData);
+                    if(responseData.message == "Error trying to request"){
+                        clearMasterChildren();
+                        showError();
+                    }else{
+                        // Update page based on response
+                        //document.getElementById('result').innerText = responseData.message;
+                        clearMasterChildren();
+                        showResponse(responseData);
+                    }
 
                     //5 seconds timer:
                     setTimeout(function() {
@@ -73,6 +77,7 @@
                 }
             };
             xhr.onerror = function() {
+                alert("SERVER error")
                 console.error('Request failed');
             };
 
@@ -505,7 +510,6 @@
 
     <script>
         function showResponse(data){
-            clearMasterChildren();
             const container = document.createElement("div");
             container.classList.add("container");
 
@@ -553,6 +557,31 @@
             document.getElementById("master").appendChild(container);
         }
     </script>
+
+    <script>
+        function showError(){
+            //display error message saying that "No se pudo obtener el certificado"
+            const container = document.createElement("div");
+            container.classList.add("container");
+
+            const row = document.createElement("div");
+            row.classList.add("row");
+
+            const col = document.createElement("div");
+            col.classList.add("col-md-12", "text-center");
+
+            const h1 = document.createElement("h1");
+            h1.classList.add("mt-5");
+            h1.textContent = "No se pudo obtener el certificado";
+
+            col.appendChild(h1);
+            row.appendChild(col);
+            container.appendChild(row);
+
+            document.getElementById("master").appendChild(container);
+        }
+    </script>
+
 
     <script>
         function addTextForm(city){
