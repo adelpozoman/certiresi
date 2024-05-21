@@ -321,7 +321,7 @@
 
     <script>
         function showBaleares() {
-            clearMasterChildren(); // Supongo que esta función la tienes definida en otro lugar
+            clearMasterChildren();
 
             const places = [
                 { name: 'Santa Eulalia', onclick: santaEulalia },
@@ -337,7 +337,7 @@
 
             places.forEach((place, index) => {
                 const card = document.createElement('div');
-                card.classList.add('card', 'w-100', 'h-20', 'text-center', 'border', 'rounded');
+                card.classList.add('card', 'w-100', 'h-20', 'mt-3', 'mb-3', 'text-center', 'border', 'rounded', 'shadow');
                 card.onclick = place.onclick;
 
                 const cardBody = document.createElement('div');
@@ -349,12 +349,12 @@
 
                 const text = document.createElement('p');
                 text.classList.add('card-text');
-                text.textContent = 'With supporting text below as a natural lead-in to additional content.';
+                text.textContent = 'Texto futuro';
 
                 const link = document.createElement('a');
                 link.href = '#';
                 link.classList.add('btn', 'btn-primary');
-                link.textContent = 'Go somewhere';
+                link.textContent = 'Adelante';
 
                 cardBody.appendChild(title);
                 cardBody.appendChild(text);
@@ -425,7 +425,7 @@
 
 
         function fillMasterWithCommunityCards() {
-            clearMasterChildren(); // Supongo que esta función la tienes definida en otro lugar
+            clearMasterChildren();
 
             const places = [
                 {
@@ -446,7 +446,7 @@
 
             places.forEach((place) => {
                 const card = document.createElement('div');
-                card.classList.add('card', 'w-100', 'h-50', 'text-center', 'border', 'rounded');
+                card.classList.add('card', 'w-100', 'h-50', 'mb-3', 'text-center', 'border', 'rounded', 'shadow');
                 card.onclick = place.onclick;
 
                 card.style.display = 'flex';
@@ -472,7 +472,7 @@
                 const link = document.createElement('a');
                 link.href = '#';
                 link.classList.add('btn', 'btn-primary');
-                link.textContent = 'Go somewhere';
+                link.textContent = 'Adelante';
 
                 cardBody.appendChild(title);
                 cardBody.appendChild(text);
