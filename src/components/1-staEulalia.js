@@ -1,37 +1,28 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+const crawler = require('crawler-request');
+
+const convertTextToDate = require("./convert-text-to-date");
 
 
-async function do_request(userCode) {
-    try {
-        const respuesta = await axios.post(userCode,
-            {
-            //unused
-        });
-        //console.log(respuesta.data);
+async function do_request(argument){
+    const url = "https://www.santaeularia.com:4455/validarcsv.aspx?csv=" + argument;
+    return crawler(url).then(function(response){
+        // handle response
+        console.log(response);
+        const lines = response.text.split('\n');
 
-        const $ = cheerio.load(respuesta.data);
-        const name = $('#ctl00_ContentPlaceHolder2_LabelNombre');
-        const date = $('#ctl00_ContentPlaceHolder2_LabelFecha');
-        const id = $('#ctl00_ContentPlaceHolder2_LabelDNI');
+        const name = lines[7].trimStart();
+        const id = lines[36];
+        const date = convertTextToDate(lines[34].split(',')[1].trim());
 
-        //console.log(name.text());
-        //console.log(date.text());
-        //console.log(id.text());
+        //console.log(name);
+        //console.log(id)
+        //console.log(date);
 
-        //return name, date and id
-        return {
-            name: name.text(),
-            date: date.text(),
-            id: id.text()
-        };
-    } catch (error) {
-        console.error('Error trying to request:', error);
-    }
+        return {name, id, date};
+    });
 }
 
 
-//do_request('https://www.santaeularia.com:4455/verifica_cert.aspx?id=80d85391e68fdc8b17c4045dd45f165e9d116431');
-
+//do_request("");
 
 module.exports = do_request;

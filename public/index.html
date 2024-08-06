@@ -391,9 +391,9 @@
             clearMasterChildren();
 
             const places = [
-                { name: 'Santa Eulalia', onclick: santaEulalia, description: 'Escanea código de barras inferior o introduce el CSV' },
-                { name: 'Palma', onclick: palma, description: 'Escanea código de barras inferior' },
-                { name: 'Sant Josep de Sa Talaia', onclick: santJosep, description: 'Introduce el CSV que se encuentra en el borde inferior' },
+                { name: 'Santa Eulalia', onclick: santaEulalia, description: 'Introduce el CSV destrás de /validarcsv.aspx?csv=' },
+                { name: 'Palma', onclick: palma, description: 'Escanea el código de barras inferior' },
+                { name: 'Sant Josep de Sa Talaia', onclick: santJosep, description: 'Introduce el CSV que se encuentra en el borde inferior. (no funciona ahora)' },
                 { name: 'Sant Joan de Labritja', onclick: santJoan, description: 'Escanea el QR de la esquina inferior derecha' },
                 { name: 'Ibiza', onclick: ibiza, description: 'Escanea el código de barras izquierdo tras ampliarlo lo máximo posible' },
                 { name: 'Alaior', onclick: alaior, description: 'Escanea el QR de la esquina inferior izquierda' }
@@ -439,7 +439,7 @@
         function santaEulalia(){
             clearMasterChildren();
             addSubHeading("santaeulalia");
-            camera2("santaeulalia");
+            addTextForm("santaeulalia");
             addCancelButton();
         }
 
