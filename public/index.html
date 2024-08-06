@@ -399,6 +399,9 @@
                 { name: 'Alaior', onclick: alaior, description: 'Escanea el QR de la esquina inferior izquierda' }
             ];
 
+            // Sort places alphabetically by name
+            places.sort((a, b) => a.name.localeCompare(b.name));
+
             const masterDiv = document.getElementById('master');
             masterDiv.style.height = "100vh";
 
