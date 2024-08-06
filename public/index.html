@@ -324,12 +324,12 @@
             clearMasterChildren();
 
             const places = [
-                { name: 'Santa Eulalia', onclick: santaEulalia },
-                { name: 'Palma', onclick: palma },
-                { name: 'Sant Josep de Sa Talaia', onclick: santJosep },
-                { name: 'Sant Joan de Labritja', onclick: santJoan },
-                { name: 'Ibiza', onclick: ibiza },
-                { name: 'Alaior', onclick: alaior }
+                { name: 'Santa Eulalia', onclick: santaEulalia, description: 'Escanea código de barras inferior o introduce el CSV' },
+                { name: 'Palma', onclick: palma, description: 'Escanea código de barras inferior' },
+                { name: 'Sant Josep de Sa Talaia', onclick: santJosep, description: 'Introduce el CSV que se encuentra en el borde inferior' },
+                { name: 'Sant Joan de Labritja', onclick: santJoan, description: 'Escanea el QR de la esquina inferior derecha' },
+                { name: 'Ibiza', onclick: ibiza, description: 'Escanea el código de barras izquierdo tras ampliarlo lo máximo posible' },
+                { name: 'Alaior', onclick: alaior, description: 'Escanea el QR de la esquina inferior izquierda' }
             ];
 
             const masterDiv = document.getElementById('master');
@@ -349,7 +349,7 @@
 
                 const text = document.createElement('p');
                 text.classList.add('card-text');
-                text.textContent = 'Texto futuro';
+                text.textContent = place.description;
 
                 const link = document.createElement('a');
                 link.href = '#';
@@ -711,7 +711,7 @@
 
 <div id="master" style="height: 80vh;">
 </div>
-
+<!--class="d-flex justify-content-center align-items-center flex-column"-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>fillMasterWithCommunityCards()</script>
