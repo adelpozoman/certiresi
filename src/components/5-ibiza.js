@@ -12,7 +12,7 @@ async function do_request(userCode) {
     //crawler(url).then(function(response){
         // handle response
         //console.log(response);
-        const lines = response.text.split('\n');
+        const lines = await response.text.split('\n');
 
 
         const nombre = lines[6].split(' ');
