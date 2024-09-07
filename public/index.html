@@ -269,6 +269,70 @@
 
     </script>
 
+    <script type="module" src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script>
+
+    <script type="module">
+        import { BarcodeDetector as BarcodeDetectorPolyfill } from 'https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/pure.js';
+
+        window.camera4 = async function camera4(city) {
+            var backCamera = document.createElement('div');
+            backCamera.setAttribute('id', 'backCamera');
+            document.getElementById('master').appendChild(backCamera);
+
+            // Use BarcodeDetectorPolyfill to avoid conflict with native BarcodeDetector
+            const barcodeDetector = new BarcodeDetectorPolyfill();
+
+            try {
+                // Get the video stream from the user's camera
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.setAttribute('playsinline', true); // required to tell iOS Safari we don't want fullscreen
+                backCamera.appendChild(video);
+
+                // Start the video
+                await video.play();
+
+                // Function to process each frame
+                const scanFrame = async () => {
+                    try {
+                        // Use the Barcode Detector to detect barcodes in the video frame
+                        const barcodes = await barcodeDetector.detect(video);
+                        if (barcodes.length > 0) {
+                            // Barcode detected, stop the camera and process the result
+                            const decodedText = barcodes[0].rawValue;
+                            console.log("decodedText", decodedText);
+
+                            // Stop the video stream and clear the element
+                            video.pause();
+                            video.srcObject = null;
+                            stream.getTracks().forEach(track => track.stop());
+                            backCamera.remove();
+
+                            // Call the function to handle the decoded text
+                            clearMasterChildren();
+                            submitForm(city, decodedText);
+                        } else {
+                            // Continue scanning
+                            requestAnimationFrame(scanFrame);
+                        }
+                    } catch (err) {
+                        console.error("Detection error:", err);
+                    }
+                };
+
+                // Start processing frames
+                scanFrame();
+
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+                alert('Error accessing camera: ' + err.message);
+            }
+        }
+    </script>
+
+
+
 
     <script>
         function sendCaptcha(city, captcha_string){
@@ -470,7 +534,7 @@
         function ibiza(){
             clearMasterChildren();
             addSubHeading("ibiza");
-            camera3("ibiza");
+            camera4("ibiza");
             addTextForm("ibiza");
             addCancelButton();
         }
