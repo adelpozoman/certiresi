@@ -210,8 +210,10 @@
 
             // Check if the Barcode Detector API is supported
             if (!('BarcodeDetector' in window)) {
-                alert('Sólo en Chrome en ANDROID.\n' +
-                    'Barcode Detector API is not supported by this browser.');
+                alert('- En iPhone usa Safari y activa: ' +
+                    'Settings > Safari > Advanced > Feature Flags > Shape Detection API\n' +
+                    '- En Android usa Chrome.\n' +
+                    '\nBarcode Detector API is not supported by this browser.');
                 return;
             }
 
